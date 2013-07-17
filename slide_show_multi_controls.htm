@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Slideshow</title>
+		<style>
+			#main_header hgroup
+			{
+				text-align: center;
+			}
+			#slideshow
+			{
+				position: relative;
+				height: 220px;
+				width: 220px;
+				margin: 0 auto;
+				margin-top: 25px;
+				background-color:#B3CCE8;
+				box-shadow:0px 25px 30px 35px #9dbee1 ;
+			}
+
+			#slideshow .slide_image
+			{
+				position: absolute;
+				top: 10px;
+				left: 5px;
+			}
+
+			#slide_nav
+			{
+				list-style: none;
+				
+				position: relative;
+				width: 200px;
+				margin: 20px auto 0px auto;
+			}
+
+			#slide_nav li
+			{
+				display: inline;
+				padding: 10px;
+				margin-left: -10px;
+			}
+			#slide_nav li a
+			{
+				padding: 5px;
+				text-decoration:none;
+				background-color: #BBFF78;
+				-webkit-border-radius:5px;
+				-moz-border-radius:5px;
+				border-radius:5px;
+			}
+			#slide_nav li a:hover
+			{
+				padding: 5px;
+				text-decoration:none;
+				background-color: #F0AEA2;
+				-webkit-border-radius:5px;
+				-moz-border-radius:5px;
+				border-radius:5px;
+			}
+
+			.selected_slide
+			{
+				z-index: 1;
+			}
+			#footer
+			{
+				text-align: center;
+			}
+		</style>
+		<script src="js/jquery-1.6.2.min.js"></script>
+		<script>
+			//jquery onload function
+			$(function()
+			{
+				$("#slideshow img").hide();
+				$("#slideshow img:first").show();
+				$("#slideshow img").addClass("slide_image");
+				makeImaageLinks();
+			});
+			//this function is makeing the dynamic links
+			function makeImaageLinks()
+			{
+				$("#slideshow").after("<ul id='slide_nav'</ul>");
+
+				for (var i = 0; i < $("#slideshow img").length; i++)
+				{
+					var imgNum = i + 1;
+					$("#slide_nav").append("<li><a href='#' rel='" + imgNum + "'>" + imgNum + "</a></li>");
+				}
+				$("#slide_nav li a").click(changeSlide);
+			}
+
+			function changeSlide()
+			{
+				var slideNum = $(this).attr("rel") - 1;
+				var currentImage = $("#slideshow img:visible");
+				var nextImage = $("#slideshow img:eq(" + slideNum + ")");
+				currentImage.hide();
+				nextImage.show();
+				return false;
+			}
+		</script>
+	</head>
+	<body>
+		<header id="main_header">
+			<hgroup>
+				<h1>jQuery Slider with Dynamic Nav</h1>
+				<h2>HTML5 &amp; CSS3</h2>
+			</hgroup>
+		</header>
+		<div id="slideshow"><!--the jQuery above allows you to dump any photo into this div and the dynamic nav will count them all-->
+			<img src="images/kitten1.png" />
+			<img src="images/kitten2.png" />
+			<img src="images/kitten3.png" />
+			<img src="images/kitten4.png" />
+			<img src="images/kitten5.png" />
+			<img src="images/kitten6.png" />
+		</div>
+		<footer id="footer" class="clear">
+    		<p> &copy;&nbsp; Copyright &nbsp;&nbsp; James R Holloway</p>
+  		</footer><!-- end footer --> 
+	</body>
+</html>
